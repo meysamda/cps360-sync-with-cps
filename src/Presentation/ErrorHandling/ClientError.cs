@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace CPS360.Sync.CSD.Presentation.ErrorHandling
+namespace Cps360.SyncWithCps.Presentation.ErrorHandling
 {
     // 4xx series erros (except 400)
     public class ClientError

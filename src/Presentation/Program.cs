@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace CPS360.Sync.CSD.Presentation
+namespace Cps360.SyncWithCps.Presentation
 {
     public class Program
     {

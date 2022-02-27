@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Net;
 using Microsoft.AspNetCore.Http;
 
-namespace CPS360.Sync.CSD.Presentation.ErrorHandling
+namespace Cps360.SyncWithCps.Presentation.ErrorHandling
 {
     public class ServerErrorResponse : ErrorResponse
     {

@@ -1,4 +1,4 @@
-namespace CPS360.Sync.CSD.Infrastructure.Data.DbContexts.Entities
+namespace Cps360.SyncWithCps.Infrastructure.Data.DbContexts.Entities
 {
     public class ContactPerson
     {

@@ -1,4 +1,4 @@
-namespace CPS360.Sync.CSD.Infrastructure.Data.Repositories
+namespace Cps360.SyncWithCps.Infrastructure.Data.Repositories
 {
     public interface IRepository
     {

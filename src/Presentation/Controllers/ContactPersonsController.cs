@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using CPS360.Sync.CSD.Application.ContactPersons;
-using CPS360.Sync.CSD.Infrastructure.Data.DbContexts.Entities;
-using CPS360.Sync.CSD.Infrastructure.Data.Repositories.ContactPersons;
-using CPS360.Sync.CSD.Presentation.Attributes;
-using CPS360.Sync.CSD.Presentation.Commands;
+using Cps360.SyncWithCps.Application.ContactPersons;
+using Cps360.SyncWithCps.Infrastructure.Data.DbContexts.Entities;
+using Cps360.SyncWithCps.Infrastructure.Data.Repositories.ContactPersons;
+using Cps360.SyncWithCps.Presentation.Attributes;
+using Cps360.SyncWithCps.Presentation.Commands;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CPS360.Sync.CSD.Presentation.Controllers
+namespace Cps360.SyncWithCps.Presentation.Controllers
 {
     [Route("api/contact-persons")]
     [ApiController]
@@ -28,7 +28,7 @@ namespace CPS360.Sync.CSD.Presentation.Controllers
         /// get contact persons count
         /// </summary>
         /// <param name="filter"></param>
-        [Auth("CPS360.Sync.CSDAdmin")]
+        [Auth("Cps360.SyncWithCpsAdmin")]
         [HttpGet("count")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -43,7 +43,7 @@ namespace CPS360.Sync.CSD.Presentation.Controllers
         /// get contact persons
         /// </summary>
         /// <param name="filter"></param>
-        [Auth("CPS360.Sync.CSDAdmin")]
+        [Auth("Cps360.SyncWithCpsAdmin")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -58,7 +58,7 @@ namespace CPS360.Sync.CSD.Presentation.Controllers
         /// create contact person
         /// </summary>
         /// <param name="command"></param>
-        [Auth("CPS360.Sync.CSDAdmin")]
+        [Auth("Cps360.SyncWithCpsAdmin")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -75,7 +75,7 @@ namespace CPS360.Sync.CSD.Presentation.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <param name="command"></param>
-        [Auth("CPS360.Sync.CSDAdmin")]
+        [Auth("Cps360.SyncWithCpsAdmin")]
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -91,7 +91,7 @@ namespace CPS360.Sync.CSD.Presentation.Controllers
         /// delete a contact person
         /// </summary>
         /// <param name="id"></param>
-        [Auth("CPS360.Sync.CSDAdmin")]
+        [Auth("Cps360.SyncWithCpsAdmin")]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

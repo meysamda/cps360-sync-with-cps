@@ -1,13 +1,13 @@
-using CPS360.Sync.CSD.Application.ContactPersons;
-using CPS360.Sync.CSD.Infrastructure.Data.Repositories.ContactPersons;
-using CPS360.Sync.CSD.Presentation.ErrorHandling;
-using CPS360.Sync.CSD.Presentation.Init;
+using Cps360.SyncWithCps.Application.ContactPersons;
+using Cps360.SyncWithCps.Infrastructure.Data.Repositories.ContactPersons;
+using Cps360.SyncWithCps.Presentation.ErrorHandling;
+using Cps360.SyncWithCps.Presentation.Init;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CPS360.Sync.CSD.Presentation
+namespace Cps360.SyncWithCps.Presentation
 {
     public class Startup
     {
@@ -51,7 +51,7 @@ namespace CPS360.Sync.CSD.Presentation
                 endpoints.MapControllers();
             });
 
-            app.MigrateCPS360.Sync.CSDDbContext();
+            app.MigrateSyncDbContext();
         }
     }
 }

@@ -1,9 +1,9 @@
-using CPS360.Sync.CSD.Application.Common.DomainExceptions;
+using Cps360.SyncWithCps.Application.Common.DomainExceptions;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace CPS360.Sync.CSD.Presentation.ErrorHandling
+namespace Cps360.SyncWithCps.Presentation.ErrorHandling
 {
     public class ClientErrorResponse : ErrorResponse
     {

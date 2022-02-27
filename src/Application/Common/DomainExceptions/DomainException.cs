@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CPS360.Sync.CSD.Application.Common.DomainExceptions
+namespace Cps360.SyncWithCps.Application.Common.DomainExceptions
 {
     public class DomainException : Exception
     {

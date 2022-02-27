@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CPS360.Sync.CSD.Application.Common.Helpers
+namespace Cps360.SyncWithCps.Application.Common.Helpers
 {
     public static class StringExtensions
     {

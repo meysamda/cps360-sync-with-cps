@@ -1,8 +1,8 @@
-﻿using CPS360.Sync.CSD.Presentation.Options;
+﻿using Cps360.SyncWithCps.Presentation.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CPS360.Sync.CSD.Presentation.Init
+namespace Cps360.SyncWithCps.Presentation.Init
 {
     public static class Authentication
     {

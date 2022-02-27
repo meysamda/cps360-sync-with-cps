@@ -1,4 +1,4 @@
-namespace CPS360.Sync.CSD.Infrastructure.Data.Repositories.ContactPersons
+namespace Cps360.SyncWithCps.Infrastructure.Data.Repositories.ContactPersons
 {
     public class ContactPersonsFilter : IFilter
     {

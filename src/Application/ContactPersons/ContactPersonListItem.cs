@@ -1,4 +1,4 @@
-namespace CPS360.Sync.CSD.Application.ContactPersons
+namespace Cps360.SyncWithCps.Application.ContactPersons
 {
     public class ContactPersonListItem
     {

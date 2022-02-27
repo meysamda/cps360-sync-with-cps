@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
-namespace CPS360.Sync.CSD.Presentation.Attributes
+namespace Cps360.SyncWithCps.Presentation.Attributes
 {
     public sealed class EmailValidationAttribute : ValidationAttribute
     {

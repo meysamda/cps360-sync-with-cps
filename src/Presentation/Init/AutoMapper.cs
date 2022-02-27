@@ -3,7 +3,7 @@ using System.Reflection;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CPS360.Sync.CSD.Presentation.Init
+namespace Cps360.SyncWithCps.Presentation.Init
 {
     public static class AutoMapper
     {

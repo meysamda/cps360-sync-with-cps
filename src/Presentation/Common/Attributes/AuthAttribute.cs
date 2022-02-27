@@ -1,7 +1,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 
-namespace CPS360.Sync.CSD.Presentation.Attributes
+namespace Cps360.SyncWithCps.Presentation.Attributes
 {
     public class AuthAttribute : AuthorizeAttribute
     {

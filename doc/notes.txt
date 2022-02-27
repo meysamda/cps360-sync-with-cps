@@ -1,0 +1,4 @@
+to clean all docker volumes
+1- open up powershell
+2- run the followin command:
+docker volume rm $(docker volume ls -q)

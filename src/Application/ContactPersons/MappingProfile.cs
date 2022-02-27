@@ -1,7 +1,7 @@
-using CPS360.Sync.CSD.Infrastructure.Data.DbContexts.Entities;
+using Cps360.SyncWithCps.Infrastructure.Data.DbContexts.Entities;
 using AutoMapper;
 
-namespace CPS360.Sync.CSD.Application.ContactPersons
+namespace Cps360.SyncWithCps.Application.ContactPersons
 {
     public class MappingProfile : Profile
     {

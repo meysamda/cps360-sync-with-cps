@@ -1,12 +1,12 @@
-using CPS360.Sync.CSD.Application.Common.DomainExceptions;
-using CPS360.Sync.CSD.Infrastructure.Data.DbContexts.Entities;
-using CPS360.Sync.CSD.Infrastructure.Data.Repositories.ContactPersons;
+using Cps360.SyncWithCps.Application.Common.DomainExceptions;
+using Cps360.SyncWithCps.Infrastructure.Data.DbContexts.Entities;
+using Cps360.SyncWithCps.Infrastructure.Data.Repositories.ContactPersons;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CPS360.Sync.CSD.Application.ContactPersons
+namespace Cps360.SyncWithCps.Application.ContactPersons
 {
     public class ContactPersonService
     {

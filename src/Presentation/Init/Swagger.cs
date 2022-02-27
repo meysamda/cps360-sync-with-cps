@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using CPS360.Sync.CSD.Presentation.Options;
+using Cps360.SyncWithCps.Presentation.Options;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -12,7 +12,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
-namespace CPS360.Sync.CSD.Presentation.Init
+namespace Cps360.SyncWithCps.Presentation.Init
 {
     public static class Swagger
     {

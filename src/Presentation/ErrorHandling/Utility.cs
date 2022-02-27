@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace CPS360.Sync.CSD.Presentation.ErrorHandling
+namespace Cps360.SyncWithCps.Presentation.ErrorHandling
 {
     public static class Utility
     {

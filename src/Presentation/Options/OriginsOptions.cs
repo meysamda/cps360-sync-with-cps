@@ -1,4 +1,4 @@
-﻿namespace CPS360.Sync.CSD.Presentation.Options
+﻿namespace Cps360.SyncWithCps.Presentation.Options
 {
     public class OriginsOptions
     {

@@ -1,11 +1,11 @@
-adding ef core migration for CPS360.Sync.CSDDbContext
+adding ef core migration for Cps360.SyncWithCpsDbContext
 
 1- install nuget package for ef core design 
 2- if development os is linux, use connection string like this:
 "Server=localhost;Database=IdP;User Id=sa;Password=Mssql@12345;"
 3- open Presentation project path in terminal
 4- add migration with command like:
-dotnet ef migrations add init --context CPS360.Sync.CSDDbContext --project ../Infrastructure -o ../Infrastructure/Data/Migrations
+dotnet ef migrations add init --context Cps360.SyncWithCpsDbContext --project ../Infrastructure -o ../Infrastructure/Data/Migrations
 
 some samples from idp:
 dotnet ef migrations add init --context AradDbContext --project ../Gaia.IdP.Data -o ../Gaia.IdP.Data/Migrations/Arad/AradDb

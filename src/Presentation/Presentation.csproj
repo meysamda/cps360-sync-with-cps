@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
-		<RootNamespace>CPS360.Sync.CSD.Presentation</RootNamespace>
+		<RootNamespace>Cps360.SyncWithCps.Presentation</RootNamespace>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

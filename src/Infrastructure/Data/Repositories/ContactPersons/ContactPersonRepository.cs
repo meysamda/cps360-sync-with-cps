@@ -1,15 +1,15 @@
 using System;
 using System.Linq;
-using CPS360.Sync.CSD.Infrastructure.Data.DbContexts;
-using CPS360.Sync.CSD.Infrastructure.Data.DbContexts.Entities;
+using Cps360.SyncWithCps.Infrastructure.Data.DbContexts;
+using Cps360.SyncWithCps.Infrastructure.Data.DbContexts.Entities;
 
-namespace CPS360.Sync.CSD.Infrastructure.Data.Repositories.ContactPersons
+namespace Cps360.SyncWithCps.Infrastructure.Data.Repositories.ContactPersons
 {
     public class ContactPersonRepository : IRepository
     {
-        private readonly CPS360.Sync.CSDDbContext _dbContext;
+        private readonly SyncWithCpsDbContext _dbContext;
 
-        public ContactPersonRepository(CPS360.Sync.CSDDbContext dbContext)
+        public ContactPersonRepository(SyncWithCpsDbContext dbContext)
         {
             _dbContext = dbContext;    
         }

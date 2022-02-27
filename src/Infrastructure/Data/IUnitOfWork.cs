@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CPS360.Sync.CSD.Infrastructure.Data
+namespace Cps360.SyncWithCps.Infrastructure.Data
 {
     public interface IUnitOfWork : IDisposable
     {
