@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using IdentityModel.Client;
+using Microsoft.Extensions.Logging;
 using RestSharp;
 
 namespace Cps360.SyncWithCps.Application.Synchronization
@@ -17,20 +19,28 @@ namespace Cps360.SyncWithCps.Application.Synchronization
 
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly CpsPortfoliosApiOptions _cpsPortfoliosApiOptions;
+        private readonly ILogger<CpsPortfoliosApiClient> _logger;
 
-        public CpsPortfoliosApiClient(IHttpClientFactory httpClientFactory, CpsPortfoliosApiOptions cpsPortfoliosApiOptions)
+        public CpsPortfoliosApiClient(IHttpClientFactory httpClientFactory, CpsPortfoliosApiOptions cpsPortfoliosApiOptions, ILogger<CpsPortfoliosApiClient> logger)
         {
             _httpClientFactory = httpClientFactory;
             _cpsPortfoliosApiOptions = cpsPortfoliosApiOptions;
+            _logger = logger;
         }
 
         public Task<IEnumerable<CpsPortfolio>> GetPortfolios(int page, int pageSize, CancellationToken cancellationToken)
         {
+            var watch = Stopwatch.StartNew();
             var uri = GetPortfoliosPageUri(page, pageSize);
             var restClient = new RestClient(_client);
             var request = new RestRequest(uri);
 
-            return restClient.GetAsync<IEnumerable<CpsPortfolio>>(request, cancellationToken);
+            var task = restClient.GetAsync<IEnumerable<CpsPortfolio>>(request, cancellationToken);
+            task.ContinueWith((t) => {
+                _logger.LogDebug($"cps-portfolios retrieved succcessfully, page: {page}, count: {t.Result.Count()}, elapsed-time: {watch.Elapsed.TotalSeconds} seconds");
+            });
+
+            return task;
         }
 
         private Uri GetPortfoliosPageUri(int page, int pageSize)

@@ -12,6 +12,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.22" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
 		<PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+		<PackageReference Include="KafkaMessageBus" Version="1.3.4" />
 	</ItemGroup>
 
 	<ItemGroup>
