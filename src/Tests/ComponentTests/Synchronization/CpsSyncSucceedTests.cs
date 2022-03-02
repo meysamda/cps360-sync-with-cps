@@ -1,29 +1,31 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Cps360.SyncWithCps.Application.CpsPortfolios;
 using FluentAssertions;
 using Xunit;
 
 namespace Cps360.SyncWithCps.Tests.ComponentTests.Synchronization
 {
     [Collection("Collection-1")]
-    public class SynchronizationTests : IClassFixture<SynchronizationMessageBusFixture>
+    public class CpsSyncSucceedTests : IClassFixture<SynchronizationMessageBusFixture>
     {
         private readonly SynchronizationMessageBusFixture _messageBusFixture;
 
-        public SynchronizationTests(SynchronizationMessageBusFixture messageBusFixture)
+        public CpsSyncSucceedTests(SynchronizationMessageBusFixture messageBusFixture)
         {
             _messageBusFixture = messageBusFixture;
         }
 
         [Fact]
-        public async Task Cps_portfolios_sync_succeed_message_triggers_csp_portfolios_messages_publishment()
+        public async Task Receiving_cps_sync_succeed_message()
         {
             // arrange
             var date = DateTime.UtcNow;
             var expectedPortfoliosCount = 10;
+            var actualCount = 0; 
             await _messageBusFixture.PrepareCleanTopics();
 
             // act
@@ -33,23 +35,22 @@ namespace Cps360.SyncWithCps.Tests.ComponentTests.Synchronization
             var maxTime = TimeSpan.FromMinutes(2);
             var watch = Stopwatch.StartNew();
             var finished = false;
-            var consumer = _messageBusFixture.GetCpsPortfoliosMessageConsumer();
-            CpsPortfoliosMessage message = null;
+            var consumer = _messageBusFixture.GetCpsPortfolioMessageConsumer();
+            var portfolios = new List<CpsPortfolio>();
 
             while (!finished && watch.Elapsed < maxTime)
             {
                 var consumeResult = consumer.Consume(default(CancellationToken));
                 if (consumeResult != null && !consumeResult.IsPartitionEOF)
                 {
-                    message = consumeResult.Message.Value;
-                    finished = true;
+                    actualCount ++;
+                    finished = expectedPortfoliosCount == actualCount;
+
+                    portfolios.Add(consumeResult.Message.Value);
                 }
             }
 
-            message.Should().NotBeNull();
-            message.Should().BeOfType<CpsPortfoliosMessage>();
-            message.Portfolios.Should().NotBeNull();
-            message.Portfolios.Count().Should().Be(expectedPortfoliosCount);
+            actualCount.Should().Be(expectedPortfoliosCount);
         }
     }
 }

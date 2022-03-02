@@ -7,12 +7,19 @@ using System.Collections.Generic;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 
-namespace Cps360.SyncWithCps.Presentation.Syncronization
+namespace Cps360.SyncWithCps.Presentation.CpsSyncSucceed
 {
     public class CpsSyncSucceedMessageSubscriber : BackgroundService
     {
-        private const string CONSUMER_GROUP_ID = "cps-sync-succeed";
-        private readonly IEnumerable<string> _topics;
+        private readonly Action<ISubscribeOptions<string, CpsSyncSucceedMessage>> SubscribeOptions = options => {
+            options.ConsumerConfig.GroupId = "Cps360";
+            options.ConsumerConfig.EnableAutoCommit = false;
+            options.ConsumerConfig.AutoOffsetReset = AutoOffsetReset.Earliest;
+            options.ConsumerConfig.EnableAutoOffsetStore = true;
+            options.ConsumerConfig.AllowAutoCreateTopics = true;
+        };
+
+        private readonly IEnumerable<string> _consumeTopics;
         private readonly ISubscriptionMessageBus _messageBus;
         private readonly IHostApplicationLifetime _hostApplicationLifetime;
         private readonly ILogger<CpsSyncSucceedMessageSubscriber> _logger;
@@ -23,7 +30,7 @@ namespace Cps360.SyncWithCps.Presentation.Syncronization
             IHostApplicationLifetime hostApplicationLifetime,
             ILogger<CpsSyncSucceedMessageSubscriber> logger)
         {
-            _topics = topics;
+            _consumeTopics = topics;
             _messageBus = messageBus;
             _hostApplicationLifetime = hostApplicationLifetime;
             _logger = logger;
@@ -33,22 +40,13 @@ namespace Cps360.SyncWithCps.Presentation.Syncronization
         {
             try
             {
-                await _messageBus.Subscribe<string, CpsSyncSucceedMessage, CpsSyncSucceedMessageProcessor>(_topics,
-                    options =>
-                    {
-                        options.ConsumerConfig.GroupId = CONSUMER_GROUP_ID;
-                        options.ConsumerConfig.EnableAutoCommit = false;
-                        options.ConsumerConfig.AutoOffsetReset = AutoOffsetReset.Earliest;
-                        options.ConsumerConfig.EnableAutoOffsetStore = true;
-                        options.ConsumerConfig.AllowAutoCreateTopics = true;
-                    }, 
-                    stoppingToken);
+                await _messageBus.Subscribe<string, CpsSyncSucceedMessage, CpsSyncSucceedMessageProcessor>(_consumeTopics, SubscribeOptions, stoppingToken);
             }
             catch (System.Exception ex)
             {
                 var hostedServiceTypeName = this.GetType().Name;
 
-                _logger.LogError(ex, "Application stopped due to an unhandled exception in hosted service {HostedService}.", hostedServiceTypeName);
+                _logger.LogError(ex, "Application stopped due to an unhandled exception in {HostedService}.", hostedServiceTypeName);
 
                 // TODO: There is a bug: In dotnet core 3.1, exceptions thrown from tasks are lost.
                 // Dotnet 6.0 fixed it so that such exceptions are caused to stop application host.

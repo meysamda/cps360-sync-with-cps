@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DFC42413-792E-4010-8164-18475C7E1303}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "Tests\IntegrationTests\IntegrationTests.csproj", "{D66DBCAA-B374-4702-80C5-1D47FEBBE4B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,12 +37,17 @@ Global
 		{CE5A3461-2820-4325-82EC-55312731F75F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE5A3461-2820-4325-82EC-55312731F75F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE5A3461-2820-4325-82EC-55312731F75F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D66DBCAA-B374-4702-80C5-1D47FEBBE4B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D66DBCAA-B374-4702-80C5-1D47FEBBE4B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D66DBCAA-B374-4702-80C5-1D47FEBBE4B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D66DBCAA-B374-4702-80C5-1D47FEBBE4B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AF282315-531A-411F-8139-EF48249FB243} = {DFC42413-792E-4010-8164-18475C7E1303}
+		{D66DBCAA-B374-4702-80C5-1D47FEBBE4B1} = {DFC42413-792E-4010-8164-18475C7E1303}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {559BC7F2-8C9D-4F77-8AEA-8872EC415C3B}

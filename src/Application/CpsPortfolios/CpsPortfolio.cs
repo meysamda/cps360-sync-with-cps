@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Cps360.SyncWithCps.Application.Synchronization
+namespace Cps360.SyncWithCps.Application.CpsPortfolios
 {
     public class CpsPortfolio
     {

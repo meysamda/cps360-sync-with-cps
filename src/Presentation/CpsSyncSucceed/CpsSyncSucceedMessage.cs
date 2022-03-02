@@ -1,8 +1,8 @@
 using System;
 
-namespace Cps360.SyncWithCps.Application.Synchronization
+namespace Cps360.SyncWithCps.Presentation.CpsSyncSucceed
 {
-    public class CpsSyncSucceedEvent
+    public class CpsSyncSucceedMessage
     {
         public DateTime Date { get; set; }
         public int PortfoliosCount { get; set; }

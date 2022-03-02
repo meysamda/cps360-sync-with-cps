@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Confluent.Kafka;
+using Cps360.SyncWithCps.Application.CpsPortfolios;
+using Cps360.SyncWithCps.Presentation.CpsSyncSucceed;
 using Cps360.SyncWithCps.Tests.ComponentTests.Common;
 using Microsoft.Extensions.Configuration;
 
@@ -27,7 +29,7 @@ namespace Cps360.SyncWithCps.Tests.ComponentTests.Synchronization
 
         public Task PublishCpsPortfoliosSyncSucceedMessage(DateTime date, int portfoliosCount)
         {
-            var message = new CpsPortfoliosSyncSucceedMessage {
+            var message = new CpsSyncSucceedMessage {
                 Date = date,
                 PortfoliosCount = portfoliosCount
             };
@@ -35,9 +37,9 @@ namespace Cps360.SyncWithCps.Tests.ComponentTests.Synchronization
             return _messageBus.PublishAsync(_cpsPortfoliosSyncSucceedTopic, message);
         }
 
-        public IConsumer<string, CpsPortfoliosMessage> GetCpsPortfoliosMessageConsumer()
+        public IConsumer<string, CpsPortfolio> GetCpsPortfolioMessageConsumer()
         {
-            var options = _messageBus.GetDefaultSubscribeOptions<string, CpsPortfoliosMessage>();
+            var options = _messageBus.GetDefaultSubscribeOptions<string, CpsPortfolio>();
             var consumer = _messageBus.GetConsumer(options);
             consumer.Subscribe(_cpsPortfoliosTopic);
 
