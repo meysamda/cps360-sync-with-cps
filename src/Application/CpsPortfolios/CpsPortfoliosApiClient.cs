@@ -20,7 +20,10 @@ namespace Cps360.SyncWithCps.Application.CpsPortfolios
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly CpsPortfoliosApiOptions _cpsPortfoliosApiOptions;
 
-        public CpsPortfoliosApiClient(IHttpClientFactory httpClientFactory, CpsPortfoliosApiOptions cpsPortfoliosApiOptions, ILogger<CpsPortfoliosApiClient> logger)
+        public CpsPortfoliosApiClient(
+            IHttpClientFactory httpClientFactory,
+            CpsPortfoliosApiOptions cpsPortfoliosApiOptions,
+            ILogger<CpsPortfoliosApiClient> logger)
         {
             _httpClientFactory = httpClientFactory;
             _cpsPortfoliosApiOptions = cpsPortfoliosApiOptions;            

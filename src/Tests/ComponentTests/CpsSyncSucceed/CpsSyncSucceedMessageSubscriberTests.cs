@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Cps360.SyncWithCps.Application.CpsPortfolios;
+using Cps360.SyncWithCps.Presentation.CpsSyncSucceed;
 using FluentAssertions;
 using Xunit;
 
-namespace Cps360.SyncWithCps.Tests.ComponentTests.Synchronization
+namespace Cps360.SyncWithCps.Tests.ComponentTests.CpsSyncSucceed
 {
     [Collection("Collection-1")]
-    public class CpsSyncSucceedTests : IClassFixture<SynchronizationMessageBusFixture>
+    public class CpsSyncSucceedMessageSubscriberTests : IClassFixture<CpsSyncSucceedMessageBusFixture>
     {
-        private readonly SynchronizationMessageBusFixture _messageBusFixture;
+        private readonly CpsSyncSucceedMessageBusFixture _messageBusFixture;
 
-        public CpsSyncSucceedTests(SynchronizationMessageBusFixture messageBusFixture)
+        public CpsSyncSucceedMessageSubscriberTests(CpsSyncSucceedMessageBusFixture messageBusFixture)
         {
             _messageBusFixture = messageBusFixture;
         }
@@ -29,14 +29,14 @@ namespace Cps360.SyncWithCps.Tests.ComponentTests.Synchronization
             await _messageBusFixture.PrepareCleanTopics();
 
             // act
-            await _messageBusFixture.PublishCpsPortfoliosSyncSucceedMessage(date, expectedPortfoliosCount);
+            await _messageBusFixture.PublishCpsSyncSucceedMessage(date, expectedPortfoliosCount);
 
             // assert
             var maxTime = TimeSpan.FromMinutes(2);
             var watch = Stopwatch.StartNew();
             var finished = false;
             var consumer = _messageBusFixture.GetCpsPortfolioMessageConsumer();
-            var portfolios = new List<CpsPortfolio>();
+            var portfolios = new List<CpsPortfolioMessage>();
 
             while (!finished && watch.Elapsed < maxTime)
             {

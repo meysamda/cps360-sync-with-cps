@@ -1,5 +1,3 @@
-using Cps360.SyncWithCps.Application.ContactPersons;
-using Cps360.SyncWithCps.Infrastructure.Data.Repositories.ContactPersons;
 using Cps360.SyncWithCps.Presentation.ErrorHandling;
 using Cps360.SyncWithCps.Presentation.Init;
 using Microsoft.AspNetCore.Builder;
@@ -23,21 +21,11 @@ namespace Cps360.SyncWithCps.Presentation
             services.AddControllers();
 
             services.AddAutoMapper();
-
-            services.AddDbContexts(Configuration);
-
-            services.AddCustomizedAuthentication(Configuration);
-
-            services.AddCustomizedSwagger(Configuration);
-
-            services.AddScoped<ContactPersonService>();
-            services.AddScoped<ContactPersonRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCustomizedExceptionHandler();
-            app.UseSwaggerAndSwaggerUI(Configuration);
 
             app.UseHttpsRedirection();
 
@@ -50,8 +38,6 @@ namespace Cps360.SyncWithCps.Presentation
             {
                 endpoints.MapControllers();
             });
-
-            app.MigrateSyncDbContext();
         }
     }
 }

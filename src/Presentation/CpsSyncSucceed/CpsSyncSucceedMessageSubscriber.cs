@@ -11,26 +11,15 @@ namespace Cps360.SyncWithCps.Presentation.CpsSyncSucceed
 {
     public class CpsSyncSucceedMessageSubscriber : BackgroundService
     {
-        private readonly Action<ISubscribeOptions<string, CpsSyncSucceedMessage>> SubscribeOptions = options => {
-            options.ConsumerConfig.GroupId = "Cps360";
-            options.ConsumerConfig.EnableAutoCommit = false;
-            options.ConsumerConfig.AutoOffsetReset = AutoOffsetReset.Earliest;
-            options.ConsumerConfig.EnableAutoOffsetStore = true;
-            options.ConsumerConfig.AllowAutoCreateTopics = true;
-        };
-
-        private readonly IEnumerable<string> _consumeTopics;
-        private readonly ISubscriptionMessageBus _messageBus;
+        private readonly ICpsSyncSucceedMessageBus _messageBus;
         private readonly IHostApplicationLifetime _hostApplicationLifetime;
         private readonly ILogger<CpsSyncSucceedMessageSubscriber> _logger;
 
         public CpsSyncSucceedMessageSubscriber(
-            IEnumerable<string> topics,
-            ISubscriptionMessageBus messageBus,
+            ICpsSyncSucceedMessageBus messageBus,
             IHostApplicationLifetime hostApplicationLifetime,
             ILogger<CpsSyncSucceedMessageSubscriber> logger)
         {
-            _consumeTopics = topics;
             _messageBus = messageBus;
             _hostApplicationLifetime = hostApplicationLifetime;
             _logger = logger;
@@ -40,7 +29,7 @@ namespace Cps360.SyncWithCps.Presentation.CpsSyncSucceed
         {
             try
             {
-                await _messageBus.Subscribe<string, CpsSyncSucceedMessage, CpsSyncSucceedMessageProcessor>(_consumeTopics, SubscribeOptions, stoppingToken);
+                await _messageBus.SubscribeForCpsSyncSucceedMessage<CpsSyncSucceedMessageProcessor>(stoppingToken);
             }
             catch (System.Exception ex)
             {

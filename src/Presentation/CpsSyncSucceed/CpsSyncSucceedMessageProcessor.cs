@@ -1,28 +1,30 @@
 ﻿using System.Threading.Tasks;
 using System.Threading;
-using System;
 using Microsoft.Extensions.Logging;
 using KafkaMessageBus.Abstractions;
 using Cps360.SyncWithCps.Application.CpsPortfolios;
 using System.Diagnostics;
-using Microsoft.Extensions.Configuration;
+using AutoMapper;
 
 namespace Cps360.SyncWithCps.Presentation.CpsSyncSucceed
 {
     public class CpsSyncSucceedMessageProcessor : IMessageProcessor<CpsSyncSucceedMessage>
     {
-        private static Action<IPublishOptions<string, CpsPortfolio>> PublishOptions = options => { };
-        private readonly string _produceTopic;
         private readonly GetCpsPortfoliosHandler _getCpsPortfoliosHandler;
+        private readonly ICpsSyncSucceedMessageBus _messageBus;
+        private readonly IMapper _mapper;
         private readonly ILogger<CpsSyncSucceedMessageProcessor> _logger;
-        private readonly IMessageBus _messageBus;
 
-        public CpsSyncSucceedMessageProcessor(GetCpsPortfoliosHandler getCpsPortfoliosHandler, IConfiguration configuration, ILogger<CpsSyncSucceedMessageProcessor> logger, IMessageBus messageBus)
+        public CpsSyncSucceedMessageProcessor(
+            GetCpsPortfoliosHandler getCpsPortfoliosHandler,
+            ICpsSyncSucceedMessageBus messageBus,
+            IMapper mapper,
+            ILogger<CpsSyncSucceedMessageProcessor> logger)
         {
-            _produceTopic = configuration.GetSection("Producers:CpsPortfoliosMessageProducer").GetValue<string>("Topic");
             _getCpsPortfoliosHandler = getCpsPortfoliosHandler;
-            _logger = logger;
             _messageBus = messageBus;
+            _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task Process(CpsSyncSucceedMessage message, CancellationToken cancellationToken = default)
@@ -33,7 +35,8 @@ namespace Cps360.SyncWithCps.Presentation.CpsSyncSucceed
             var portfolios = await _getCpsPortfoliosHandler.Handle(message.PortfoliosCount, cancellationToken);
             foreach (var portfolio in portfolios)
             {
-                _messageBus.Publish(_produceTopic, portfolio, PublishOptions);
+                var portfolioMessage = _mapper.Map<CpsPortfolioMessage>(portfolio);
+                _messageBus.PublishCpsPortfolioMessage(portfolioMessage);
             }
 
             _logger.LogDebug("message {Message} processed successfully, elapsed-time: {TotalSeconds} seconds", message, watch.Elapsed.TotalSeconds);
