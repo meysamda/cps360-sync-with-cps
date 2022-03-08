@@ -1,14 +1,13 @@
 ﻿using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.Extensions.Logging;
-using KafkaMessageBus.Abstractions;
 using Cps360.SyncWithCps.Application.CpsPortfolios;
 using System.Diagnostics;
 using AutoMapper;
 
 namespace Cps360.SyncWithCps.Presentation.CpsSyncSucceed
 {
-    public class CpsSyncSucceedMessageProcessor : IMessageProcessor<CpsSyncSucceedMessage>
+    public class CpsSyncSucceedMessageProcessor
     {
         private readonly GetCpsPortfoliosHandler _getCpsPortfoliosHandler;
         private readonly ICpsSyncSucceedMessageBus _messageBus;

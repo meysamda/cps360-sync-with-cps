@@ -1,25 +1,24 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using System.Threading;
-using System;
-using KafkaMessageBus.Abstractions;
-using System.Collections.Generic;
-using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
 
 namespace Cps360.SyncWithCps.Presentation.CpsSyncSucceed
 {
     public class CpsSyncSucceedMessageSubscriber : BackgroundService
     {
+        private readonly CpsSyncSucceedMessageProcessor _cpsSyncSucceedMessageProcessor;
         private readonly ICpsSyncSucceedMessageBus _messageBus;
         private readonly IHostApplicationLifetime _hostApplicationLifetime;
         private readonly ILogger<CpsSyncSucceedMessageSubscriber> _logger;
 
         public CpsSyncSucceedMessageSubscriber(
+            CpsSyncSucceedMessageProcessor cpsSyncSucceedMessageProcessor,
             ICpsSyncSucceedMessageBus messageBus,
             IHostApplicationLifetime hostApplicationLifetime,
             ILogger<CpsSyncSucceedMessageSubscriber> logger)
         {
+            _cpsSyncSucceedMessageProcessor = cpsSyncSucceedMessageProcessor;
             _messageBus = messageBus;
             _hostApplicationLifetime = hostApplicationLifetime;
             _logger = logger;
@@ -29,7 +28,9 @@ namespace Cps360.SyncWithCps.Presentation.CpsSyncSucceed
         {
             try
             {
-                await _messageBus.SubscribeForCpsSyncSucceedMessage<CpsSyncSucceedMessageProcessor>(stoppingToken);
+                await _messageBus.SubscribeForCpsSyncSucceedMessage(
+                    (message) => _cpsSyncSucceedMessageProcessor.Process(message, stoppingToken),
+                    stoppingToken);
             }
             catch (System.Exception ex)
             {

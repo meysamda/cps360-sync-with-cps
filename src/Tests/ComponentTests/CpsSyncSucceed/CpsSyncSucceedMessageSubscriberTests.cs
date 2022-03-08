@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using Cps360.SyncWithCps.Presentation;
 using Cps360.SyncWithCps.Presentation.CpsSyncSucceed;
+using Cps360.SyncWithCps.Tests.ComponentTests.Common;
 using FluentAssertions;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Hosting;
 using Xunit;
 
 namespace Cps360.SyncWithCps.Tests.ComponentTests.CpsSyncSucceed
@@ -20,13 +25,16 @@ namespace Cps360.SyncWithCps.Tests.ComponentTests.CpsSyncSucceed
         }
 
         [Fact]
-        public async Task Receiving_cps_sync_succeed_message()
+        public async Task Recieves_and_publishes_cps_portfolios_by_recevinig_cps_sync_succeed_message()
         {
             // arrange
             var date = DateTime.UtcNow;
             var expectedPortfoliosCount = 10;
             var actualCount = 0; 
             await _messageBusFixture.PrepareCleanTopics();
+            var host = CreateHost();
+            host.RunAsync();
+            // var sut = new TestServer(host.Services);
 
             // act
             await _messageBusFixture.PublishCpsSyncSucceedMessage(date, expectedPortfoliosCount);
@@ -51,6 +59,18 @@ namespace Cps360.SyncWithCps.Tests.ComponentTests.CpsSyncSucceed
             }
 
             actualCount.Should().Be(expectedPortfoliosCount);
+        }
+
+        private IHost CreateHost(){
+            var hostBuilder = Host.CreateDefaultBuilder()
+                .ConfigureServices((hostContext, services) =>
+                {
+                    var config = TestConfigurationUtility.GetConfiguration();
+                    var startup = new Startup(config);
+                    startup.ConfigureServices(services);
+                });
+
+            return hostBuilder.Build();
         }
     }
 }

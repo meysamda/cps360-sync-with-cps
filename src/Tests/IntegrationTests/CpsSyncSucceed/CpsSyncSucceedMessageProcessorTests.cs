@@ -27,13 +27,13 @@ namespace Cps360.SyncWithCps.Tests.IntegrationTests.CpsSyncSucceed
         {
             // arrange
             var portfolios = GenerateCpsPortfolios(10);
-            var cpsPortfoliosApiClientMock = new Mock<ICpsPortfoliosApiClient>();
-            cpsPortfoliosApiClientMock
-                .Setup(x => x.GetCpsPortfolios(10, 500, default(CancellationToken)))
+            var cpsPortfoliosApiClientStub = new Mock<ICpsPortfoliosApiClient>();
+            cpsPortfoliosApiClientStub
+                .Setup(x => x.GetCpsPortfolios(0, 500, default(CancellationToken)))
                 .Returns(() => Task.FromResult(portfolios));
 
             var getCpsPortfoliosHandlerLoggerMock = new Mock<ILogger<GetCpsPortfoliosHandler>>();
-            var getCpsPortfoliosHandler = new GetCpsPortfoliosHandler(cpsPortfoliosApiClientMock.Object, getCpsPortfoliosHandlerLoggerMock.Object);
+            var getCpsPortfoliosHandler = new GetCpsPortfoliosHandler(cpsPortfoliosApiClientStub.Object, getCpsPortfoliosHandlerLoggerMock.Object);
             var messageProcessorLoggerMock = new Mock<ILogger<CpsSyncSucceedMessageProcessor>>();
             var messageBusMock = new Mock<ICpsSyncSucceedMessageBus>();
             var sut = new CpsSyncSucceedMessageProcessor(getCpsPortfoliosHandler, messageBusMock.Object, _mapper, messageProcessorLoggerMock.Object);
@@ -46,7 +46,7 @@ namespace Cps360.SyncWithCps.Tests.IntegrationTests.CpsSyncSucceed
             foreach (var portfolio in portfolios)
             {
                 var portfolioMessage = _mapper.Map<CpsPortfolioMessage>(portfolio);
-                messageBusMock.Verify(x => x.PublishCpsPortfolioMessage(portfolioMessage), Times.Once);
+                messageBusMock.Verify(x => x.PublishCpsPortfolioMessage(It.Is<CpsPortfolioMessage>(o => o.NationalCode == portfolioMessage.NationalCode)), Times.Once);
             }
         }
 

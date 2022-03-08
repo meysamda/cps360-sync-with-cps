@@ -22,22 +22,24 @@ namespace Cps360.SyncWithCps.Presentation.CpsSyncSucceed
         };
 
         private readonly string _cpsPortfolioMessageProduceTopic;
-        private static Action<IPublishOptions<string, CpsPortfolioMessage>> CpsPortfolioMessagePublishOptions = options => {
-
-        };
+        private static Action<IPublishOptions<string, CpsPortfolioMessage>> CpsPortfolioMessagePublishOptions = options => { };
         private readonly IMessageBus _messageBus;
 
-        public CpsSyncSucceedMessageBus(IMessageBus messageBus, IConfiguration configuration)
+        public CpsSyncSucceedMessageBus(
+            IMessageBus messageBus,
+            IConfiguration configuration)
         {
             _messageBus = messageBus;
+            
             _cpsSyncSucceedMessageConsumeTopics = configuration.GetSection("Consumers:CpsSyncSucceedMessageConsumer").GetValue<string>("TopicsStr").Split(",").Select(o => o.Trim());
             _cpsPortfolioMessageProduceTopic = configuration.GetSection("Producers:CpsPortfolioMessageProducer").GetValue<string>("Topic");
         }
 
-        public Task SubscribeForCpsSyncSucceedMessage<TMessageProcessor>(CancellationToken cancellationToken = default) where TMessageProcessor : IMessageProcessor<CpsSyncSucceedMessage>
+        public Task SubscribeForCpsSyncSucceedMessage(Func<CpsSyncSucceedMessage, Task> messageProcessor, CancellationToken cancellationToken = default)
         {
-            return _messageBus.Subscribe<string, CpsSyncSucceedMessage, TMessageProcessor>(
+            return _messageBus.Subscribe<CpsSyncSucceedMessage>(
                 _cpsSyncSucceedMessageConsumeTopics,
+                messageProcessor,
                 CpsSyncSucceedMessageSubscriptionOptions,
                 cancellationToken);
         }
