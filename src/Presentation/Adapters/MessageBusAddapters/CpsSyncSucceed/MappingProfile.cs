@@ -1,7 +1,7 @@
 using AutoMapper;
 using Cps360.SyncWithCps.Application.CpsPortfolios;
 
-namespace Cps360.SyncWithCps.Presentation.CpsSyncSucceed
+namespace Cps360.SyncWithCps.Presentation.Adapters.MessageBusAdapters.CpsSyncSucceed
 {
     public class MappingProfile : Profile
     {

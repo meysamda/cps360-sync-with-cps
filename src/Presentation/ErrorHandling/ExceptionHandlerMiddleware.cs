@@ -31,10 +31,10 @@ namespace Cps360.SyncWithCps.Presentation.ErrorHandling
                 context.Response.ContentType = "application/problem+json; charset=utf-8";
                 ErrorResponse response;
 
-                if (ex is DomainException domainException)
-                    response = new ClientErrorResponse(domainException, context);
+                if (ex is DomainClientException domainClientException)
+                    response = new ClientErrorResponse(domainClientException, context);
                 
-                else if (ex is DomainBadRequestException domainBadRequestException)
+                else if (ex is DomainClientBadRequestException domainBadRequestException)
                     response = new BadRequestErrorResponse(domainBadRequestException, context);
 
                 else if (ex is BadRequestException badRequestException)

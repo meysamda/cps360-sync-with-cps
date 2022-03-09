@@ -3,18 +3,18 @@ using Microsoft.Extensions.Hosting;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 
-namespace Cps360.SyncWithCps.Presentation.CpsSyncSucceed
+namespace Cps360.SyncWithCps.Presentation.Adapters.MessageBusAdapters.CpsSyncSucceed
 {
     public class CpsSyncSucceedMessageSubscriber : BackgroundService
     {
         private readonly CpsSyncSucceedMessageProcessor _cpsSyncSucceedMessageProcessor;
-        private readonly ICpsSyncSucceedMessageBus _messageBus;
+        private readonly ICpsSyncSucceedSubscriptionMessageBus _messageBus;
         private readonly IHostApplicationLifetime _hostApplicationLifetime;
         private readonly ILogger<CpsSyncSucceedMessageSubscriber> _logger;
 
         public CpsSyncSucceedMessageSubscriber(
             CpsSyncSucceedMessageProcessor cpsSyncSucceedMessageProcessor,
-            ICpsSyncSucceedMessageBus messageBus,
+            ICpsSyncSucceedSubscriptionMessageBus messageBus,
             IHostApplicationLifetime hostApplicationLifetime,
             ILogger<CpsSyncSucceedMessageSubscriber> logger)
         {
@@ -28,7 +28,7 @@ namespace Cps360.SyncWithCps.Presentation.CpsSyncSucceed
         {
             try
             {
-                await _messageBus.SubscribeForCpsSyncSucceedMessage(
+                await _messageBus.Subscribe(
                     (message) => _cpsSyncSucceedMessageProcessor.Process(message, stoppingToken),
                     stoppingToken);
             }

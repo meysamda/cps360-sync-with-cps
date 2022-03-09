@@ -7,5 +7,6 @@ namespace Cps360.SyncWithCps.Application.CpsPortfolios
     public interface ICpsPortfoliosApiClient
     {
         Task<IEnumerable<CpsPortfolio>> GetCpsPortfolios(int page, int pageSize, CancellationToken cancellationToken);
+        Task<int> GetCpsPortfoliosCount(CancellationToken cancellationToken);
     }
 }

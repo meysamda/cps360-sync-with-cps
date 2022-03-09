@@ -2,6 +2,7 @@
 {
     public class CpsPortfoliosApiOptions
     {
+        public string GetPortfoliosCountUrl { get; set; }
         public string GetPortfoliosUrl { get; set; }
         public AuthorizationOptions Authorization { get; set; }
 

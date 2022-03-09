@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Cps360.SyncWithCps.Presentation;
-using Cps360.SyncWithCps.Presentation.CpsSyncSucceed;
+using Cps360.SyncWithCps.Presentation.Adapters;
+using Cps360.SyncWithCps.Presentation.Adapters.MessageBusAdapters.CpsSyncSucceed;
 using Cps360.SyncWithCps.Tests.ComponentTests.Common;
 using FluentAssertions;
 using Microsoft.AspNetCore.Hosting;
@@ -32,8 +34,11 @@ namespace Cps360.SyncWithCps.Tests.ComponentTests.CpsSyncSucceed
             var expectedPortfoliosCount = 10;
             var actualCount = 0; 
             await _messageBusFixture.PrepareCleanTopics();
+            
             var host = CreateHost();
-            host.RunAsync();
+            var worker = new BackgroundWorker();
+            worker.DoWork += (sender, args) => host.Run();
+            worker.RunWorkerAsync();
             // var sut = new TestServer(host.Services);
 
             // act

@@ -10,7 +10,7 @@ namespace Cps360.SyncWithCps.Presentation.ErrorHandling
         public string Error { get; set; }
         public string MoreDetails { get; set; }
 
-        public ClientErrorResponse(DomainException exception, HttpContext context)
+        public ClientErrorResponse(DomainClientException exception, HttpContext context)
         {
             Init();
 

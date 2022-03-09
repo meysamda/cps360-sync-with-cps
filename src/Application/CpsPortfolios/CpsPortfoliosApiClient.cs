@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -27,6 +26,15 @@ namespace Cps360.SyncWithCps.Application.CpsPortfolios
         {
             _httpClientFactory = httpClientFactory;
             _cpsPortfoliosApiOptions = cpsPortfoliosApiOptions;            
+        }
+
+        public Task<int> GetCpsPortfoliosCount(CancellationToken cancellationToken)
+        {
+            var uri = new Uri(_cpsPortfoliosApiOptions.GetPortfoliosCountUrl);
+            var restClient = new RestClient(_client);
+            var request = new RestRequest(uri);
+
+            return restClient.GetAsync<int>(request, cancellationToken);
         }
 
         public Task<IEnumerable<CpsPortfolio>> GetCpsPortfolios(int page, int pageSize, CancellationToken cancellationToken)

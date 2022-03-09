@@ -1,6 +1,6 @@
 using System;
 
-namespace Cps360.SyncWithCps.Presentation.CpsSyncSucceed
+namespace Cps360.SyncWithCps.Presentation.Adapters.MessageBusAdapters.CpsSyncSucceed
 {
     public class CpsSyncSucceedMessage
     {

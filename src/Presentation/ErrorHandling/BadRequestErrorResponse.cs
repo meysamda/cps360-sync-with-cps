@@ -10,13 +10,13 @@ namespace Cps360.SyncWithCps.Presentation.ErrorHandling
     {
         public IEnumerable<BadRequestError> Errors { get; set; }
 
-        public BadRequestErrorResponse(DomainBadRequestException exception, HttpContext context)
+        public BadRequestErrorResponse(DomainClientBadRequestException exception, HttpContext context)
         {
             Init();
 
-            string errorMessage = exception.ErrorMessage.HasValue ?
-                exception.ErrorMessage.ToString() :
-                exception.ErrorMessageStr;
+            string errorMessage = exception.ErrorMessages.Any() ?
+                string.Join(",", exception.ErrorMessages.Select(o => o.ToString())) :
+                exception.ErrorMessage;
 
             TraceId = Activity.Current?.Id ?? context?.TraceIdentifier;
             Errors = new[] { new BadRequestError(exception.Key, errorMessage) };

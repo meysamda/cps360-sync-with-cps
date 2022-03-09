@@ -4,8 +4,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Cps360.SyncWithCps.Application.CpsPortfolios;
-using Cps360.SyncWithCps.Presentation.CpsSyncSucceed;
+using Cps360.SyncWithCps.Presentation.Adapters;
+using Cps360.SyncWithCps.Presentation.Adapters.MessageBusAdapters.CpsSyncSucceed;
 using Cps360.SyncWithCps.Tests.IntegrationTests.Common;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
@@ -26,16 +29,18 @@ namespace Cps360.SyncWithCps.Tests.IntegrationTests.CpsSyncSucceed
         public async Task Processing_cps_sync_succeed_message()
         {
             // arrange
+            
+            // prepare GetCpsPortfoliosHandler to being resolved form host
             var portfolios = GenerateCpsPortfolios(10);
+            var getCpsPortfoliosHandlerLoggerMock = new Mock<ILogger<GetCpsPortfoliosHandler>>();
             var cpsPortfoliosApiClientStub = new Mock<ICpsPortfoliosApiClient>();
             cpsPortfoliosApiClientStub
                 .Setup(x => x.GetCpsPortfolios(0, 500, default(CancellationToken)))
                 .Returns(() => Task.FromResult(portfolios));
-
-            var getCpsPortfoliosHandlerLoggerMock = new Mock<ILogger<GetCpsPortfoliosHandler>>();
+            
             var getCpsPortfoliosHandler = new GetCpsPortfoliosHandler(cpsPortfoliosApiClientStub.Object, getCpsPortfoliosHandlerLoggerMock.Object);
             var messageProcessorLoggerMock = new Mock<ILogger<CpsSyncSucceedMessageProcessor>>();
-            var messageBusMock = new Mock<ICpsSyncSucceedMessageBus>();
+            var messageBusMock = new Mock<ICpsPortfolioPublishMessageBus>();
             var sut = new CpsSyncSucceedMessageProcessor(getCpsPortfoliosHandler, messageBusMock.Object, _mapper, messageProcessorLoggerMock.Object);
             
             // act
@@ -46,7 +51,7 @@ namespace Cps360.SyncWithCps.Tests.IntegrationTests.CpsSyncSucceed
             foreach (var portfolio in portfolios)
             {
                 var portfolioMessage = _mapper.Map<CpsPortfolioMessage>(portfolio);
-                messageBusMock.Verify(x => x.PublishCpsPortfolioMessage(It.Is<CpsPortfolioMessage>(o => o.NationalCode == portfolioMessage.NationalCode)), Times.Once);
+                messageBusMock.Verify(x => x.Publish(It.Is<CpsPortfolioMessage>(o => o.NationalCode == portfolioMessage.NationalCode)), Times.Once);
             }
         }
 
