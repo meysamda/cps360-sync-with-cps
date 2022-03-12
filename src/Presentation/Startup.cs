@@ -1,13 +1,12 @@
 using Cps360.SyncWithCps.Application.CpsPortfolios;
-using Cps360.SyncWithCps.Presentation.Adapters;
-using Cps360.SyncWithCps.Presentation.Adapters.MessageBusAdapters.CpsSyncSucceed;
-using Cps360.SyncWithCps.Presentation.ErrorHandling;
+using Cps360.SyncWithCps.Presentation.MessageBusAdapters.CpsSyncSucceed;
 using Cps360.SyncWithCps.Presentation.Init;
-using KafkaMessageBus.Abstractions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Cps360.SyncWithCps.Presentation.Common;
+using Cps360.SyncWithCps.Presentation.HttpAdapters.ErrorHandling;
 
 namespace Cps360.SyncWithCps.Presentation
 {
@@ -42,7 +41,8 @@ namespace Cps360.SyncWithCps.Presentation
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCustomizedExceptionHandler();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+            
             app.UseSwaggerAndSwaggerUI(Configuration);
 
             app.UseHttpsRedirection();

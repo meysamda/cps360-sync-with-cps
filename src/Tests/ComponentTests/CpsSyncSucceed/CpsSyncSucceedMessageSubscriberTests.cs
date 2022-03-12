@@ -5,12 +5,10 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Cps360.SyncWithCps.Presentation;
-using Cps360.SyncWithCps.Presentation.Adapters;
-using Cps360.SyncWithCps.Presentation.Adapters.MessageBusAdapters.CpsSyncSucceed;
+using Cps360.SyncWithCps.Presentation.Common;
 using Cps360.SyncWithCps.Tests.ComponentTests.Common;
 using FluentAssertions;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Hosting;
 using Xunit;
 

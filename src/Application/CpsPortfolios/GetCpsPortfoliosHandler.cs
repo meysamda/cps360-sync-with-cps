@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Cps360.SyncWithCps.Application.Common.DomainExceptions;
+using Cps360.SyncWithCps.Application.Exceptions;
 using Microsoft.Extensions.Logging;
 
 namespace Cps360.SyncWithCps.Application.CpsPortfolios

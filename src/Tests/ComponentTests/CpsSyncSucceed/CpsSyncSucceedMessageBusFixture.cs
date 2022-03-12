@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Confluent.Kafka;
-using Cps360.SyncWithCps.Application.CpsPortfolios;
-using Cps360.SyncWithCps.Presentation.Adapters;
-using Cps360.SyncWithCps.Presentation.Adapters.MessageBusAdapters.CpsSyncSucceed;
+using Cps360.SyncWithCps.Presentation.Common;
+using Cps360.SyncWithCps.Presentation.MessageBusAdapters.CpsSyncSucceed;
 using Cps360.SyncWithCps.Tests.ComponentTests.Common;
 using Microsoft.Extensions.Configuration;
 

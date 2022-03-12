@@ -4,11 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Cps360.SyncWithCps.Application.CpsPortfolios;
-using Cps360.SyncWithCps.Presentation.Adapters;
-using Cps360.SyncWithCps.Presentation.Adapters.MessageBusAdapters.CpsSyncSucceed;
+using Cps360.SyncWithCps.Presentation.Common;
+using Cps360.SyncWithCps.Presentation.MessageBusAdapters.CpsSyncSucceed;
 using Cps360.SyncWithCps.Tests.IntegrationTests.Common;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
@@ -29,8 +27,6 @@ namespace Cps360.SyncWithCps.Tests.IntegrationTests.CpsSyncSucceed
         public async Task Processing_cps_sync_succeed_message()
         {
             // arrange
-            
-            // prepare GetCpsPortfoliosHandler to being resolved form host
             var portfolios = GenerateCpsPortfolios(10);
             var getCpsPortfoliosHandlerLoggerMock = new Mock<ILogger<GetCpsPortfoliosHandler>>();
             var cpsPortfoliosApiClientStub = new Mock<ICpsPortfoliosApiClient>();
